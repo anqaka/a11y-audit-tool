@@ -66,7 +66,7 @@ const defaultCategories = [
     name: '19 Multiple Ways',
   },
   {
-    name: '20 Parsing',
+    name: 'Robust',
   },
 ]
 

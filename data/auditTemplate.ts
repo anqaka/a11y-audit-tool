@@ -2031,4 +2031,25 @@ export const auditTemplate = [
     ],
     URLs: ['https://www.w3.org/TR/WCAG22/#cc5'],
   },
+  {
+    'Test Name': 'Assistive technologies',
+    'Test ID': '1.F',
+    'Test Category': 'Robust',
+    'WCAG SC': ['4'],
+    Level: undefined,
+    'Test Conditions': [
+      "Content is available and operable for assistive technologies (ATs): screen readers, switches, voice input...",
+      "Note all issues and notices after assistive technology tests; do not forget about what ATs were tested"
+    ],
+    'Disability Impact': [
+      'Without Vision',
+      'With Limited Vision',
+      'Without Hearing',
+      'With Limited Hearing',
+      'Without Speech',
+      'With Limited Manipulation',
+      'Cognitive and Learning Abilities',
+    ],
+    URLs: ['https://www.w3.org/TR/WCAG22/#robust'],
+  },
 ]
