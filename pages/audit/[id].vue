@@ -193,7 +193,7 @@ watch(
         </AccordionTab>
       </Accordion>
       <div class="grid grid-cols-1 gap-x-6 gap-y-4 md:grid-cols-[2fr_1fr]">
-        <div v-if="!auditInfo.config.noAxe">
+        <div>
           <label
             for="url-selector"
             class="mb-2 block font-medium"
@@ -210,7 +210,7 @@ watch(
             @change="isReloadRequired = true"
           />
         </div>
-        <div :class="{ 'col-span-2': auditInfo.config.noAxe }">
+        <div>
           <label
             for="screen-size"
             class="mb-2 block font-medium"
