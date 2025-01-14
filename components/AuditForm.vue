@@ -58,9 +58,7 @@ if (baseAuditId) {
     $handleError(errorWithUpdatedMessage as Error | SupabaseError)
   } else {
     setValues({
-      pages: baseAudit.config.noAxe
-        ? [{ selector: '', endSelector: '', url: '' }]
-        : baseAudit.config.pages,
+      pages: baseAudit.config.pages,
       title: baseAudit.config.title,
       project: baseAudit.projects?.id,
       username: baseAudit.config.basicAuth.username,
@@ -126,7 +124,7 @@ const sendForm = handleSubmit(async (values) => {
       description: values.description || '',
     }
 
-    if (!values.noAxe) {
+    // if (!values.noAxe) {
       config = {
         ...config,
         basicAuth: {
@@ -135,7 +133,7 @@ const sendForm = handleSubmit(async (values) => {
         },
         pages: values.pages || [],
       }
-    }
+    // }
 
     const { data: newAudit, error } = await supabase
       .from('audits')
@@ -157,21 +155,24 @@ const sendForm = handleSubmit(async (values) => {
     }
 
     if (noAxe.value) {
-      values.viewports.forEach(async (viewport) => {
-        const { error } = await supabase
-          .from('axe')
-          .insert({
-            audit_id: newAudit.id,
-            size: viewport?.toString(),
-          })
-          .select()
-          .single()
-
-        if (error) {
-          throw isSupabaseError(error)
-            ? new SupabaseError(error)
-            : new Error(error?.message || '')
-        }
+      values.pages?.forEach(async (page) => {
+        values.viewports.forEach(async (viewport) => {
+          const { error } = await supabase
+            .from('axe')
+            .insert({
+              audit_id: newAudit.id,
+              size: viewport?.toString(),
+              results: {url: page.url, passes: [], violations: [], incomplete: []}
+            })
+            .select()
+            .single()
+  
+          if (error) {
+            throw isSupabaseError(error)
+              ? new SupabaseError(error)
+              : new Error(error?.message || '')
+          }
+        })
       })
 
       navigateTo(`/audit/${newAudit.id}`)
@@ -232,7 +233,6 @@ const onAuditProcessingDialogClose = (resetAuditForm: boolean = true) => {
         :multiple="true"
       >
         <AccordionTab
-          v-if="!noAxe"
           header="Pages"
         >
           <div
@@ -289,7 +289,7 @@ const onAuditProcessingDialogClose = (resetAuditForm: boolean = true) => {
                   selector allowed. If empty whole document will be tested.
                 </small>
               </div>
-              <div class="col-start-2 w-full">
+              <div class="col-start-2 w-full" v-if="!noAxe">
                 <label :for="`selector-end-${index}`"
                   >HTML Selector at the end of the page</label
                 >
@@ -309,7 +309,7 @@ const onAuditProcessingDialogClose = (resetAuditForm: boolean = true) => {
                     },
                   ]"
                 />
-                <small :id="`selector-end-help-${index}`">
+                <small :id="`selector-end-help-${index}`" v-if="!noAxe">
                   Sometimes dynamic page is not fully loaded when automatic
                   tests are conducted. To make sure all elements on the page are
                   available, provide the element at the end of the page, use
