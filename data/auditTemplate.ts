@@ -2015,7 +2015,7 @@ export const auditTemplate = [
     'WCAG SC': ['Requirements'],
     Level: 'A',
     'Test Conditions': [
-      "Content in the non-conforming version(s) meets following SCs: 1.4.2 - Audio Control, 2.1.2 - No Keyboard Trap, 2.3.1 - Three Flashes or Below Threshold, 2.2.2 - Pause, Stop, Hide. It's mean test with IDs 2.!, 2.B, 2.C, 3.A and 4.C should be conducted.",
+      "Content in the non-conforming version(s) meets following SCs: 1.4.2 - Audio Control, 2.1.2 - No Keyboard Trap, 2.3.1 - Three Flashes or Below Threshold, 2.2.2 - Pause, Stop, Hide. It's mean test with IDs 2.1, 2.B, 2.C, 3.A and 4.C should be conducted.",
     ],
     'Disability Impact': [
       'Without Vision',
