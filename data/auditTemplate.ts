@@ -729,6 +729,31 @@ export const auditTemplate = [
     URLs: ['https://www.w3.org/TR/WCAG22/#identify-input-purpose'],
   },
   {
+    'Test Name': '3.3.7-redundant-entry',
+    'Test ID': '337.custom',
+    'Test Category': 'Forms',
+    'WCAG SC': ['3.3.7'],
+    'Axe Rules': {
+      tag: 'wcag337',
+      rules: false,
+    },
+    Level: 'A',
+    'Test Conditions': [
+      'Information previously entered by or provided to the user that is required to be entered again in the same process is either: auto-populated, OR available for the user to select.',
+    ],
+    Techniques: [
+      'Provide data from previous steps in a process',
+      'Not requesting the same information twice (Potential future technique)'
+    ],
+    Note: undefined,
+    'Disability Impact': [
+      'With Limited Manipulation',
+      'With Limited Language',
+      'Cognitive and Learning Abilities',
+    ],
+    URLs: ['https://www.w3.org/TR/WCAG22/#identify-input-purpose'],
+  },
+  {
     'Test Name': '3.3.8-accessible-authentication-minimum',
     'Test ID': '338.custom',
     'Test Category': 'Forms',
@@ -1088,6 +1113,31 @@ export const auditTemplate = [
       'Cognitive and Learning Abilities',
     ],
     URLs: ['https://www.w3.org/TR/WCAG22/#consistent-identification'],
+  },
+  {
+    'Test Name': '3.2.6-consistent-help',
+    'Test ID': '9.D',
+    'Test Category': 'Repetitive Content',
+    'WCAG SC': ['3.2.6'],
+    'Axe Rules': {
+      tag: 'wcag326',
+      rules: false,
+    },
+    Level: 'A',
+    'Test Conditions': [
+      'Help mechanisms are in the same place when they are available on multiple pages.',
+    ],
+    Techniques: [
+      'Keep help mechanisms relative order to other page content.',
+    ],
+    Note: undefined,
+    'Disability Impact': [
+      'Without Vision',
+      'With Limited Vision',
+      'With Limited Language',
+      'Cognitive and Learning Abilities',
+    ],
+    URLs: ['https://www.w3.org/TR/WCAG22/#consistent-help'],
   },
   {
     'Test Name': '2.4.6-heading-purpose',
