@@ -22,6 +22,7 @@ export const availableScreenSizes: ScreenSize[] = [
   { name: 'macbook-16', viewport: [1536, 960] },
   { name: 'samsung-note9', viewport: [414, 846] },
   { name: 'samsung-s10', viewport: [360, 760] },
+  { name: 'pixel-8', viewport: [412, 915] },
 ]
 
 export const defaultViewports = [

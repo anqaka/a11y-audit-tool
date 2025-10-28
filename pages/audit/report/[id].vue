@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { useToast } from 'primevue/usetoast'
 import type { Database } from 'types/supabase'
+import type { AuditReport } from 'types/audit-report'
 import { getAuditReport } from '~/utils/get-audit-report'
 
 const supabase = useSupabaseClient<Database>()
@@ -55,7 +56,7 @@ if (!axeResults || !auditInfo) {
 }
 
 useHead({
-  title: `Snowdog Accessibility Audit Report - ${auditInfo.config.title}`,
+  title: `Accessibility Audit Report - ${auditInfo.config.title}`,
   titleTemplate: '%s',
 })
 
@@ -100,6 +101,22 @@ const completeReport = async () => {
     isCompletingReport.value = false
   }
 }
+
+const exportAuditReportAsJson = (
+  auditReport: AuditReport,
+  auditId: string | string[]
+) => {
+  const json = JSON.stringify(auditReport, null, 2)
+  const blob = new Blob([json], { type: 'application/json' })
+  const url = URL.createObjectURL(blob)
+  const link = document.createElement('a')
+  link.href = url
+  link.download = `audit-${auditId}.json`
+  document.body.appendChild(link)
+  link.click()
+  document.body.removeChild(link)
+  URL.revokeObjectURL(url)
+}
 </script>
 
 <template>
@@ -110,6 +127,13 @@ const completeReport = async () => {
       :class="{ 'mb-24': !isAuditCompleted }"
     >
       <AuditReportSharableLink v-if="isAuditCompleted && !isSharableReport" />
+      <Button
+        class="p-button p-button-outlined print:!hidden"
+        @click="exportAuditReportAsJson(auditReport, '12')"
+      >
+        Download report as JSON
+      </Button>
+
       <NuxtLink
         v-if="!isSharableReport"
         :to="`/audit/new?baseAuditId=${auditId}`"
@@ -119,10 +143,6 @@ const completeReport = async () => {
       </NuxtLink>
       <Card>
         <template #content>
-          <SvgoLogo
-            class="mx-auto mb-8 w-60"
-            aria-hidden="true"
-          />
           <div class="mb-16 space-y-4 text-center">
             <Tag
               v-if="!isAuditCompleted"
@@ -173,6 +193,16 @@ const completeReport = async () => {
                       >
                         {{ page.selector }}
                       </code>
+                    </template>
+                    <template v-if="page.endSelector?.length">
+                      <span class="print:hidden">
+                        - selector of the element at the end of the page:
+                        <code
+                          class="break-words rounded-md bg-gray-100 px-2 py-1"
+                        >
+                          {{ page.endSelector }}
+                        </code>
+                      </span>
                     </template>
                   </li>
                 </ul>

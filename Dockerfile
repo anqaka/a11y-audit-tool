@@ -17,6 +17,7 @@ FROM node:18.17-alpine AS server
 ENV NODE_ENV=production
 WORKDIR /app
 COPY --from=builder /app/.output /app/.output
+RUN pnpm playwright
 CMD [ "node", ".output/server/index.mjs" ]
 EXPOSE 3000
 

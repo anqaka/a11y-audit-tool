@@ -32,28 +32,35 @@ defineProps<{
         'divide-green-600': type === 'passes',
       }"
     >
-      <li
+      <template
         v-for="(manualTestResult, manualTestResultIndex) in manualTestResults"
         :key="manualTestResultIndex"
-        class="space-y-4 py-4 last-of-type:pb-0"
       >
-        <h5
-          v-if="manualTestResult.pageName"
-          class="break-words text-base font-medium"
+        <li
+          v-if="
+            manualTestResult.issues.length ||
+            manualTestResult.recommendedFixes.length
+          "
+          class="space-y-4 py-4 last-of-type:pb-0"
         >
-          {{ manualTestResult.pageName }}
-        </h5>
-        <div>
-          <p v-if="manualTestResult.issues.length">
-            <span class="font-medium">Issues:</span>
-            {{ manualTestResult.issues }}
-          </p>
-          <p v-if="manualTestResult.recommendedFixes.length">
-            <span class="font-medium"> Recommended fixes: </span>
-            {{ manualTestResult.recommendedFixes }}
-          </p>
-        </div>
-      </li>
+          <h5
+            v-if="manualTestResult.pageName"
+            class="break-words text-base font-medium"
+          >
+            {{ manualTestResult.pageName }}
+          </h5>
+          <div>
+            <p v-if="manualTestResult.issues.length">
+              <span class="font-medium">Issues:</span>
+              {{ manualTestResult.issues }}
+            </p>
+            <p v-if="manualTestResult.recommendedFixes.length">
+              <span class="font-medium"> Recommended fixes: </span>
+              {{ manualTestResult.recommendedFixes }}
+            </p>
+          </div>
+        </li>
+      </template>
     </ul>
   </li>
 </template>
