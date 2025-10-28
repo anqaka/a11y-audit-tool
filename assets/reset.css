@@ -1,3 +1,7 @@
+.p-toggleable-content {
+    display: block !important;
+  }
+
 body {
   margin: 0;
   height: 100%;
